@@ -3,8 +3,8 @@ const hamburger = document.querySelector('.hamburger');
 const navLinks = document.querySelector('.nav-links');
 
 function toggleNav() {
-  navLinks.classList.toggle('active');
-  hamburger.setAttribute('aria-expanded', navLinks.classList.contains('active'));
+  const isExpanded = navLinks.classList.toggle('active') ? 'true' : 'false';
+  hamburger.setAttribute('aria-expanded', isExpanded);
 }
 
 hamburger.addEventListener('click', toggleNav);
@@ -30,6 +30,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     if (target) {
       e.preventDefault();
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      
+      // Close mobile menu if open
+      if (navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+      }
     }
   });
 });
@@ -74,7 +80,7 @@ portfolioItems.forEach(item => {
   });
   item.setAttribute('tabindex', '0');
   item.setAttribute('role', 'button');
-  item.setAttribute('aria-label', item.querySelector('.caption').textContent);
+  item.setAttribute('aria-label', 'View ' + item.querySelector('.caption').textContent);
 });
 
 closeBtn.addEventListener('click', closeModal);
@@ -102,6 +108,51 @@ window.addEventListener('keydown', (e) => {
         }
       }
     }
+  }
+});
+
+// Dark Mode Toggle
+const darkModeToggle = document.getElementById('darkModeToggle');
+const darkModeIcon = document.querySelector('.dark-mode-icon');
+
+// Check for saved preference or system preference
+function initDarkMode() {
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const savedMode = localStorage.getItem('darkMode');
+  
+  if (savedMode === 'enabled' || (savedMode === null && prefersDark)) {
+    document.body.classList.add('dark-mode');
+    darkModeIcon.textContent = '☀️';
+    darkModeToggle.setAttribute('aria-label', 'Switch to light mode');
+  } else {
+    darkModeIcon.textContent = '🌙';
+    darkModeToggle.setAttribute('aria-label', 'Switch to dark mode');
+  }
+}
+
+// Toggle dark mode
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+  const isDarkMode = document.body.classList.contains('dark-mode');
+  
+  // Update icon and label
+  darkModeIcon.textContent = isDarkMode ? '☀️' : '🌙';
+  darkModeToggle.setAttribute('aria-label', isDarkMode ? 'Switch to light mode' : 'Switch to dark mode');
+  
+  // Save preference (Note: This uses localStorage which won't work in Claude artifacts)
+  // For use outside of artifacts, uncomment the line below:
+  // localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+}
+
+// Initialize and add event listener
+initDarkMode();
+darkModeToggle.addEventListener('click', toggleDarkMode);
+
+// Add keyboard support
+darkModeToggle.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    toggleDarkMode();
   }
 });
 
@@ -157,6 +208,9 @@ window.addEventListener('scroll', () => {
   if (window.scrollY > 50) {
     header.style.background = 'rgba(255,255,255,0.98)';
     header.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+    if (document.body.classList.contains('dark-mode')) {
+      header.style.background = 'rgba(18,18,18,0.98)';
+    }
   } else {
     header.style.background = '';
     header.style.boxShadow = '';
