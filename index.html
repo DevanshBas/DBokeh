@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DBokeh - Photography Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Navigation -->
+  <header>
+    <nav class="container">
+      <a href="#hero" class="logo">DBokeh</a>
+      <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="hamburger" aria-label="Open navigation" tabindex="0">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="hero">
+      <h1>DBokeh</h1>
+      <p>Capturing moments through creative vision</p>
+      <a href="#portfolio" class="btn-primary">View Portfolio</a>
+    </section>
+
+    <section id="portfolio" class="container">
+      <h2>Portfolio</h2>
+      <div class="portfolio-grid">
+        <div class="photo-card portfolio-item" data-image="images/DSC_0003.jpg">
+          <img src="images/DSC_0003.jpg" alt="Photo 1 Description" loading="lazy">
+          <div class="caption">Photo 1 Title</div>
+        </div>
+        <div class="photo-card portfolio-item" data-image="images/DSC_0021.jpg">
+          <img src="images/DSC_0021.jpg" alt="Photo 2 Description" loading="lazy">
+          <div class="caption">Photo 2 Title</div>
+        </div>
+        <div class="photo-card portfolio-item" data-image="images/DSC_0025.jpg">
+          <img src="images/DSC_0025.jpg" alt="Photo 3 Description" loading="lazy">
+          <div class="caption">Photo 3 Title</div>
+        </div>
+        <div class="photo-card portfolio-item" data-image="images/DSC_0058.jpg">
+          <img src="images/DSC_0058.jpg" alt="Photo 4 Description" loading="lazy">
+          <div class="caption">Photo 4 Title</div>
+        </div>
+        <div class="photo-card portfolio-item" data-image="images/DSC_0081.jpg">
+          <img src="images/DSC_0081.jpg" alt="Photo 5 Description" loading="lazy">
+          <div class="caption">Photo 5 Title</div>
+        </div>
+        <div class="photo-card portfolio-item" data-image="images/DSC_0084.jpg">
+          <img src="images/DSC_0084.jpg" alt="Photo 6 Description" loading="lazy">
+          <div class="caption">Photo 6 Title</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="container">
+      <h2>About</h2>
+      <p class="about-text">
+        Welcome to DBokeh, where photography meets artistry. I'm a passionate photographer dedicated to capturing the beauty of our world through unique perspectives and creative vision.<br>
+        My work focuses on natural landscapes, urban environments, and the subtle interplay of light and shadow. Each image tells a story, inviting viewers to see the world through a different lens.<br>
+        With years of experience in both digital and film photography, I believe in the power of visual storytelling to connect people with the beauty that surrounds us every day.
+      </p>
+    </section>
+
+    <section id="contact" class="container contact-container">
+      <h2>Contact</h2>
+      <p>Interested in working together? Let's connect!</p>
+      <a href="mailto:your.email@example.com" class="btn-secondary">Email Me</a>
+      <div class="social-links">
+        <a href="#" aria-label="Instagram">📷</a>
+        <a href="#" aria-label="Flickr">📸</a>
+        <a href="#" aria-label="Twitter">🐦</a>
+        <a href="#" aria-label="Email">✉️</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 DBokeh Photography. All rights reserved.</p>
+    <p>Capturing the world, one frame at a time.</p>
+  </footer>
+
+  <!-- Modal for Image Gallery -->
+  <div id="imageModal" class="modal" aria-modal="true" role="dialog" tabindex="-1">
+    <span class="close" aria-label="Close">&times;</span>
+    <div class="modal-content">
+      <img id="modalImage" src="" alt="Portfolio Image">
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
