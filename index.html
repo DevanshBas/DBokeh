@@ -5,8 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>DBokeh - Photography Portfolio</title>
   <link rel="stylesheet" href="style.css" />
+  <!-- Favicon: Clean "D" aperture SVG icon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg width='64' height='64' viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='32' cy='32' r='28' stroke='%23FFAE00' stroke-width='6' fill='none' opacity='0.15'/%3E%3Cpath d='M32 8 A24 24 0 1 1 8 32' stroke='%23FFAE00' stroke-width='6' fill='none' stroke-linecap='round'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-size='32' font-family='Poppins, sans-serif' fill='%23FFAE00' font-weight='bold'%3ED%3C/text%3E%3C/svg%3E">
 </head>
 <body>
+  <!-- Loading Overlay -->
+  <div id="loading-overlay">
+    <div class="loading-logo">
+      <svg width="64" height="64" viewBox="0 0 64 64" class="spin">
+        <circle cx="32" cy="32" r="28" stroke="#FFAE00" stroke-width="6" fill="none" opacity="0.15"/>
+        <path d="M32 8
+                 A24 24 0 1 1 8 32"
+              stroke="#FFAE00"
+              stroke-width="6"
+              fill="none"
+              stroke-linecap="round"/>
+        <text x="32" y="40" text-anchor="middle" font-size="32" font-family="Poppins, sans-serif" fill="#FFAE00" font-weight="bold">D</text>
+      </svg>
+    </div>
+  </div>
+  <!-- Bokeh Canvas Background -->
+  <canvas id="bokeh-bg"></canvas>
   <!-- Navigation -->
   <header>
     <nav class="container">
@@ -26,57 +45,241 @@
   </header>
 
   <main>
-    <section class="hero" id="hero">
-      <h1>DBokeh</h1>
-      <p>Capturing moments through creative vision</p>
-      <a href="#portfolio" class="btn-primary">View Portfolio</a>
+    <!-- Fullscreen Hero with Rotating/Featured Shot -->
+    <section class="hero hero-fullscreen" id="hero">
+      <div class="hero-image-container">
+        <img id="hero-image" src="images/DSC_0003.jpg" alt="A sunrise over snowy mountain peaks." />
+        <div class="hero-overlay">
+          <h1 id="hero-title">Sunrise Peaks</h1>
+          <div id="hero-meta">
+            <span class="hero-location">Banff, Canada</span>
+            <span class="hero-quote">A cold morning in the Rockies.</span>
+          </div>
+        </div>
+        <button class="hero-arrow hero-arrow-left" aria-label="Previous featured photo">&#8592;</button>
+        <button class="hero-arrow hero-arrow-right" aria-label="Next featured photo">&#8594;</button>
+      </div>
+      <a href="#portfolio" class="btn-primary hero-scroll-down" aria-label="Scroll to portfolio">&#8595;</a>
     </section>
 
+    <!-- Portfolio Filters as Tag Pills -->
     <section id="portfolio" class="container">
       <h2>Portfolio</h2>
-      <div class="portfolio-grid">
-        <div class="photo-card portfolio-item" data-image="images/DSC_0003.jpg">
-          <img src="images/DSC_0003.jpg" alt="Photo 1 Description" loading="lazy">
-          <div class="caption">Photo 1 Title</div>
+      <div class="portfolio-filters" role="tablist" aria-label="Photo categories">
+        <button class="filter-btn tag-pill active" data-filter="all" role="tab" aria-selected="true">All</button>
+        <button class="filter-btn tag-pill" data-filter="landscape" role="tab" aria-selected="false">Landscape</button>
+        <button class="filter-btn tag-pill" data-filter="urban" role="tab" aria-selected="false">Urban</button>
+        <button class="filter-btn tag-pill" data-filter="portrait" role="tab" aria-selected="false">Portrait</button>
+        <!-- Add more categories as needed -->
+      </div>
+      <div class="portfolio-masonry-grid">
+        <!-- Photo 1 -->
+        <div class="photo-card portfolio-item"
+             data-category="landscape"
+             data-image="images/DSC_0003.jpg"
+             data-title="Sunrise Peaks"
+             data-location="Banff, Canada"
+             data-tags="landscape,mountains,nature"
+             data-caption="A cold morning in the Rockies."
+             data-alt="A sunrise over snowy mountain peaks."
+             data-desc="A cold morning in the Rockies, golden light hitting the peaks. Great for landscape lovers."
+             data-aos>
+          <img 
+            src="images/DSC_0003.jpg"
+            srcset="images/DSC_0003.jpg 1200w, images/DSC_0003-800.jpg 800w, images/DSC_0003-400.jpg 400w"
+            sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            alt="A sunrise over snowy mountain peaks."
+            width="1200"
+            loading="lazy">
+          <div class="photo-overlay">
+            <div class="photo-title">Sunrise Peaks</div>
+            <div class="photo-tags">
+              <button class="tag-pill" data-filter="landscape" tabindex="0">Landscape</button>
+              <button class="tag-pill" data-filter="mountains" tabindex="0">Mountains</button>
+              <button class="tag-pill" data-filter="nature" tabindex="0">Nature</button>
+            </div>
+            <div class="photo-link">
+              <button class="link-btn" title="Copy image link" data-img-link="images/DSC_0003.jpg">🔗</button>
+            </div>
+          </div>
         </div>
-        <div class="photo-card portfolio-item" data-image="images/DSC_0021.jpg">
-          <img src="images/DSC_0021.jpg" alt="Photo 2 Description" loading="lazy">
-          <div class="caption">Photo 2 Title</div>
+        <!-- Photo 2 -->
+        <div class="photo-card portfolio-item"
+             data-category="urban"
+             data-image="images/DSC_0021.jpg"
+             data-title="City Lights"
+             data-location="Toronto, ON"
+             data-tags="urban,night"
+             data-caption="Downtown at night."
+             data-alt="Downtown Toronto at night, city lights glowing."
+             data-desc="A vibrant cityscape showing the energy of Toronto after dark."
+             data-aos>
+          <img 
+            src="images/DSC_0021.jpg"
+            srcset="images/DSC_0021.jpg 1200w, images/DSC_0021-800.jpg 800w, images/DSC_0021-400.jpg 400w"
+            sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            alt="Downtown Toronto at night, city lights glowing."
+            width="1200"
+            loading="lazy">
+          <div class="photo-overlay">
+            <div class="photo-title">City Lights</div>
+            <div class="photo-tags">
+              <button class="tag-pill" data-filter="urban" tabindex="0">Urban</button>
+              <button class="tag-pill" data-filter="night" tabindex="0">Night</button>
+            </div>
+            <div class="photo-link">
+              <button class="link-btn" title="Copy image link" data-img-link="images/DSC_0021.jpg">🔗</button>
+            </div>
+          </div>
         </div>
-        <div class="photo-card portfolio-item" data-image="images/DSC_0025.jpg">
-          <img src="images/DSC_0025.jpg" alt="Photo 3 Description" loading="lazy">
-          <div class="caption">Photo 3 Title</div>
+        <!-- Photo 3 -->
+        <div class="photo-card portfolio-item"
+             data-category="portrait"
+             data-image="images/DSC_0025.jpg"
+             data-title="Portrait Example"
+             data-location="Calgary, AB"
+             data-tags="portrait,people"
+             data-caption="A candid portrait."
+             data-alt="A candid portrait of a person."
+             data-desc="A natural light portrait capturing a genuine moment."
+             data-aos>
+          <img 
+            src="images/DSC_0025.jpg"
+            srcset="images/DSC_0025.jpg 1200w, images/DSC_0025-800.jpg 800w, images/DSC_0025-400.jpg 400w"
+            sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            alt="A candid portrait of a person."
+            width="1200"
+            loading="lazy">
+          <div class="photo-overlay">
+            <div class="photo-title">Portrait Example</div>
+            <div class="photo-tags">
+              <button class="tag-pill" data-filter="portrait" tabindex="0">Portrait</button>
+              <button class="tag-pill" data-filter="people" tabindex="0">People</button>
+            </div>
+            <div class="photo-link">
+              <button class="link-btn" title="Copy image link" data-img-link="images/DSC_0025.jpg">🔗</button>
+            </div>
+          </div>
         </div>
-        <div class="photo-card portfolio-item" data-image="images/DSC_0058.jpg">
-          <img src="images/DSC_0058.jpg" alt="Photo 4 Description" loading="lazy">
-          <div class="caption">Photo 4 Title</div>
+        <!-- Photo 4 -->
+        <div class="photo-card portfolio-item"
+             data-category="landscape"
+             data-image="images/DSC_0058.jpg"
+             data-title="Forest Trail"
+             data-location="Whistler, BC"
+             data-tags="landscape,forest"
+             data-caption="A misty forest trail."
+             data-alt="A misty trail through a dense forest."
+             data-desc="A peaceful walk through the woods, early morning mist."
+             data-aos>
+          <img 
+            src="images/DSC_0058.jpg"
+            srcset="images/DSC_0058.jpg 1200w, images/DSC_0058-800.jpg 800w, images/DSC_0058-400.jpg 400w"
+            sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            alt="A misty trail through a dense forest."
+            width="1200"
+            loading="lazy">
+          <div class="photo-overlay">
+            <div class="photo-title">Forest Trail</div>
+            <div class="photo-tags">
+              <button class="tag-pill" data-filter="landscape" tabindex="0">Landscape</button>
+              <button class="tag-pill" data-filter="forest" tabindex="0">Forest</button>
+            </div>
+            <div class="photo-link">
+              <button class="link-btn" title="Copy image link" data-img-link="images/DSC_0058.jpg">🔗</button>
+            </div>
+          </div>
         </div>
-        <div class="photo-card portfolio-item" data-image="images/DSC_0081.jpg">
-          <img src="images/DSC_0081.jpg" alt="Photo 5 Description" loading="lazy">
-          <div class="caption">Photo 5 Title</div>
+        <!-- Photo 5 -->
+        <div class="photo-card portfolio-item"
+             data-category="urban"
+             data-image="images/DSC_0081.jpg"
+             data-title="Street Mood"
+             data-location="New York, NY"
+             data-tags="urban,street"
+             data-caption="A rainy street scene."
+             data-alt="A rainy street in New York, reflections on the pavement."
+             data-desc="Urban life in the rain, with glowing reflections and umbrellas."
+             data-aos>
+          <img 
+            src="images/DSC_0081.jpg"
+            srcset="images/DSC_0081.jpg 1200w, images/DSC_0081-800.jpg 800w, images/DSC_0081-400.jpg 400w"
+            sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            alt="A rainy street in New York, reflections on the pavement."
+            width="1200"
+            loading="lazy">
+          <div class="photo-overlay">
+            <div class="photo-title">Street Mood</div>
+            <div class="photo-tags">
+              <button class="tag-pill" data-filter="urban" tabindex="0">Urban</button>
+              <button class="tag-pill" data-filter="street" tabindex="0">Street</button>
+            </div>
+            <div class="photo-link">
+              <button class="link-btn" title="Copy image link" data-img-link="images/DSC_0081.jpg">🔗</button>
+            </div>
+          </div>
         </div>
-        <div class="photo-card portfolio-item" data-image="images/DSC_0084.jpg">
-          <img src="images/DSC_0084.jpg" alt="Photo 6 Description" loading="lazy">
-          <div class="caption">Photo 6 Title</div>
+        <!-- Photo 6 -->
+        <div class="photo-card portfolio-item"
+             data-category="portrait"
+             data-image="images/DSC_0084.jpg"
+             data-title="Evening Smile"
+             data-location="Vancouver, BC"
+             data-tags="portrait,evening"
+             data-caption="A smile at dusk."
+             data-alt="A person smiling in the evening light."
+             data-desc="A candid moment captured during golden hour."
+             data-aos>
+          <img 
+            src="images/DSC_0084.jpg"
+            srcset="images/DSC_0084.jpg 1200w, images/DSC_0084-800.jpg 800w, images/DSC_0084-400.jpg 400w"
+            sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            alt="A person smiling in the evening light."
+            width="1200"
+            loading="lazy">
+          <div class="photo-overlay">
+            <div class="photo-title">Evening Smile</div>
+            <div class="photo-tags">
+              <button class="tag-pill" data-filter="portrait" tabindex="0">Portrait</button>
+              <button class="tag-pill" data-filter="evening" tabindex="0">Evening</button>
+            </div>
+            <div class="photo-link">
+              <button class="link-btn" title="Copy image link" data-img-link="images/DSC_0084.jpg">🔗</button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <section id="about" class="container">
-      <h2>About</h2>
+      <h2>About Me</h2>
       <p class="about-text">
-        Welcome to DBokeh. I'm Devansh, a photographer who just enjoys capturing the world as I see it. Whether it’s nature, city streets, or small moments most people miss, I try to show things from a different angle.<br>
-        Most of my shots focus on landscapes, city vibes, and how light plays with everything around us. I’ve been into both digital and film photography for a while now, and I’m always exploring new ways to tell a story through photos—no fancy setup, just real moments.
+        Hey, I'm Devansh. I shoot what feels real to me—landscapes, city scenes, and the little moments most people walk past. I love natural light, honest colors, and finding a story in the ordinary. No fancy gear, just a camera and curiosity. If you vibe with my style, let's connect.
       </p>
     </section>
 
     <section id="contact" class="container contact-container">
-      <h2>Contact</h2>
-      <p>Interested in working together? Let's connect!</p>
-      <a href="mailto:devanshbasran@gmail.com" class="btn-secondary">Email Me</a>
+      <h2>Contact / Inquiry</h2>
+      <p>Want to work together, collaborate, or buy a print? Drop me a message below or email me directly.</p>
+      <form id="contact-form" autocomplete="off" action="mailto:devanshbasran@gmail.com" method="POST" enctype="text/plain">
+        <div>
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" required autocomplete="name" />
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required autocomplete="email" />
+        </div>
+        <div>
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn-primary">Send</button>
+        <div id="form-status" aria-live="polite"></div>
+      </form>
       <div class="social-links">
         <a href="https://instagram.com/devanshbas" target="_blank" rel="noopener" aria-label="Instagram">@devanshbas 📷</a>
-        <a href="#" aria-label="Email">✉️</a>
+        <a href="mailto:devanshbasran@gmail.com" aria-label="Email">✉️</a>
       </div>
     </section>
   </main>
@@ -86,12 +289,24 @@
     <p>Capturing the world, one frame at a time.</p>
   </footer>
 
-  <!-- Modal for Image Gallery -->
+  <!-- Modal for Image Gallery with Nav and Actions -->
   <div id="imageModal" class="modal" aria-modal="true" role="dialog" tabindex="-1">
     <span class="close" aria-label="Close">&times;</span>
+    <button class="modal-arrow modal-arrow-left" aria-label="Previous photo">&#8592;</button>
     <div class="modal-content">
       <img id="modalImage" src="" alt="Portfolio Image">
+      <div class="modal-caption">
+        <div id="modal-title"></div>
+        <div id="modal-location"></div>
+        <div id="modal-tags"></div>
+        <div id="modal-story"></div>
+        <div class="modal-actions">
+          <button id="modal-share" title="Share photo">🔗</button>
+          <a id="modal-download" href="#" download title="Download photo">⬇️</a>
+        </div>
+      </div>
     </div>
+    <button class="modal-arrow modal-arrow-right" aria-label="Next photo">&#8594;</button>
   </div>
 
   <script src="script.js"></script>

@@ -5,9 +5,9 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "chrome",
+            "type": "vscode-edge-devtools.debug",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
+            "name": "Edge: Launch with DevTools",
             "url": "http://localhost:8080",
             "webRoot": "${workspaceFolder}"
         }
