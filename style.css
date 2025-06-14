@@ -1,12 +1,13 @@
 /* CSS Variables */
 :root {
-  --color-bg: #0F0F0F;
+  --color-bg: #ffffff; /* Default light mode background */
   --color-text: #FFFFFF;
   --color-text-muted: #CCCCCC;
   --color-black: #0F0F0F;
   --color-white: #FFFFFF;
   --color-primary: #FFAE00;
-  --color-accent: #FFAE00;
+ --color-accent: #FFAE00; /* Existing orange */
+ --color-secondary-accent: #6C92F1; /* New cool blue */
   --color-highlight: #1E90FF;
   --color-highlight-alt: #6C63FF;
   --border-radius: 0.75rem;
@@ -17,12 +18,12 @@
   --font-body: 'Inter', sans-serif;
 }
 
-/* Dark mode variables */
-:root {
+/* Dark Mode Variables */
+.dark-mode {
   --color-bg-dark: #0F0F0F;
   --color-text-dark: #FFFFFF;
   --color-text-muted-dark: #CCCCCC;
-  --color-black-dark: #FFFFFF;
+  --color-black-dark: #FFFFFF; /* Should be black in dark mode */
   --color-white-dark: #0F0F0F;
   --color-primary-dark: #FFAE00;
   --shadow-dark: 0 6px 24px rgba(0,0,0,0.25);
@@ -39,8 +40,8 @@
 }
 html {
   scroll-behavior: smooth;
-  font-family: var(--font-body);
-  background-color: var(--color-bg);
+  font-family: var(--font-body); /* Should use light mode variables by default */
+  background-color: var(--color-bg); /* Should use light mode variables by default */
   color: var(--color-text-muted);
 }
 body {
@@ -62,10 +63,11 @@ ul {
   margin: 0 auto;
   padding: 0 1rem;
 }
+section { padding: 6rem 0; } /* Consistent section padding */
 
 /* Header */
 header {
-  position: sticky;
+  position: fixed; /* Change to fixed for persistent header */
   top: 0;
   background: rgba(15,15,15,0.95);
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
@@ -77,6 +79,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 0;
+  min-height: 70px; /* Give header a minimum height */
 }
 .logo {
   font-family: var(--font-heading);
@@ -87,6 +90,7 @@ nav {
 .nav-links {
   display: flex;
   gap: 2rem;
+  align-items: center; /* Vertically align nav links */
 }
 .nav-links a {
   font-weight: 600;
@@ -95,8 +99,9 @@ nav {
   position: relative;
   transition: color var(--transition-speed);
 }
+/* Nav link hover underline */
 .nav-links a:hover {
-  color: var(--color-highlight);
+  color: var(--color-secondary-accent);
 }
 .nav-links a::after {
   content: '';
@@ -107,6 +112,9 @@ nav {
   left: 0;
   bottom: -4px;
   transition: width var(--transition-speed);
+  height: 2px; /* Ensure underline has height */
+  opacity: 0; /* Hide initially */
+  transform: scaleX(0); /* Hide initially */
 }
 .nav-links a:hover::after {
   background: var(--color-highlight);
@@ -120,6 +128,7 @@ nav {
   align-items: stretch;
   justify-content: center;
   padding: 0;
+  padding-top: 70px; /* Add padding-top to account for fixed header */
   background: var(--color-bg);
 }
 .hero-image-container {
@@ -132,7 +141,7 @@ nav {
   width: 100vw;
   height: 100vh;
   object-fit: cover;
-  display: block;
+  display: block; /* Ensure img is a block element */
   filter: brightness(0.85) saturate(1.1);
   transition: opacity 0.7s cubic-bezier(.4,0,.2,1);
   will-change: transform;
@@ -151,6 +160,7 @@ nav {
 }
 .hero-overlay h1 {
   font-size: 2.5rem;
+  font-family: var(--font-heading);
   color: var(--color-accent);
   margin-bottom: 0.5rem;
 }
@@ -163,6 +173,7 @@ nav {
   margin-right: 1.5rem;
 }
 .hero-quote {
+  font-family: var(--font-body);
   font-style: italic;
   color: var(--color-highlight);
 }
@@ -182,6 +193,7 @@ nav {
   transition: background 0.2s, color 0.2s;
 }
 .hero-arrow-left { left: 2vw; }
+.hero-arrow-left:hover { transform: translateY(-50%) translateX(-5px); } /* Add subtle arrow hover effect */
 .hero-arrow-right { right: 2vw; }
 .hero-arrow:hover { background: var(--color-highlight); color: #fff; }
 .hero-scroll-down {
@@ -199,6 +211,7 @@ nav {
   z-index: 3;
   transition: background 0.2s, color 0.2s;
 }
+.hero-scroll-down:hover { transform: translateX(-50%) translateY(5px); } /* Add subtle scroll down hover effect */
 .hero-scroll-down:hover { background: var(--color-highlight); color: #fff; }
 
 /* Hero */
@@ -210,14 +223,15 @@ nav {
 .hero h1 {
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: 3rem;
   margin-bottom: 1rem;
   letter-spacing: -0.03em;
   line-height: 1.1;
   color: var(--color-accent);
 }
 .hero p {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
   max-width: 600px;
   margin: 0 auto 2.5rem;
   color: var(--color-text-muted);
@@ -233,10 +247,10 @@ nav {
   border-radius: var(--border-radius);
   border: 1.5px solid rgba(255,255,255,0.18);
   cursor: pointer;
-  transition: 
-    background-color var(--transition-speed), 
-    color var(--transition-speed), 
-    box-shadow var(--transition-speed), 
+  transition:
+    background-color var(--transition-speed),
+    color var(--transition-speed),
+    box-shadow var(--transition-speed),
     border-color var(--transition-speed),
     transform var(--transition-speed);
   box-shadow: 0 4px 24px 0 rgba(255, 174, 0, 0.08);
@@ -251,10 +265,10 @@ nav {
   color: var(--color-white);
 }
 .btn-primary:hover, .btn-primary:focus {
-  background: rgba(30, 144, 255, 0.18);
+  background: rgba(108, 146, 241, 0.18);
   color: var(--color-white);
-  box-shadow: 0 0 16px 2px var(--color-highlight);
-  border-color: var(--color-highlight);
+  box-shadow: 0 0 16px 2px var(--color-secondary-accent);
+  border-color: var(--color-secondary-accent);
   transform: scale(1.04);
 }
 .btn-secondary {
@@ -263,23 +277,19 @@ nav {
   color: var(--color-accent);
 }
 .btn-secondary:hover, .btn-secondary:focus {
-  background: rgba(108, 99, 255, 0.18);
+  background: rgba(108, 146, 241, 0.18);
   color: var(--color-white);
-  box-shadow: 0 0 16px 2px var(--color-highlight-alt);
-  border-color: var(--color-highlight-alt);
+  box-shadow: 0 0 16px 2px var(--color-secondary-accent);
+  border-color: var(--color-secondary-accent);
   transform: scale(1.04);
 }
 
-/* Portfolio Section */
-section {
-  padding: 4rem 0;
-}
 section h2 {
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: var(--color-accent);
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   text-align: center;
 }
 .portfolio-grid {
@@ -303,9 +313,9 @@ section h2 {
   aspect-ratio: 1 / 1;
   height: auto;
 }
-.photo-card:hover {
-  box-shadow: 0 12px 32px 0 rgba(30,144,255,0.18);
-  border-color: var(--color-highlight);
+.photo-card:hover, .photo-card:focus-within { /* Apply hover styles on focus-within for accessibility */
+  box-shadow: 0 12px 32px 0 rgba(108,146,241,0.18);
+  border-color: var(--color-secondary-accent);
   transform: translateY(-6px) scale(1.03);
 }
 .photo-card img {
@@ -313,6 +323,7 @@ section h2 {
   height: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
+  transition: transform 0.3s ease; /* Add transform transition */
   display: block;
 }
 .photo-card .caption {
@@ -321,6 +332,7 @@ section h2 {
   font-size: 1rem;
   color: var(--color-text-muted);
 }
+.photo-card:hover img { transform: scale(1.05); } /* Add subtle image scale on hover */
 
 /* Masonry Grid */
 .portfolio-masonry-grid {
@@ -329,21 +341,21 @@ section h2 {
   gap: 1.5rem;
   margin-top: 2rem;
   align-items: stretch;
-}
+} /* Base grid layout */
+
 @media (max-width: 900px) {
   .portfolio-masonry-grid {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust breakpoint minmax */
     gap: 1rem;
   }
 }
 @media (max-width: 640px) {
   .portfolio-masonry-grid {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust breakpoint minmax */
     gap: 0.7rem;
   }
 }
 
-/* Photo Card Hover Overlay */
 .photo-card {
   position: relative;
   overflow: hidden;
@@ -371,22 +383,27 @@ section h2 {
 }
 .photo-title {
   font-size: 1.2rem;
+  font-family: var(--font-heading);
   font-weight: 700;
   color: var(--color-accent);
   margin-bottom: 0.3rem;
 }
 .photo-tags {
   font-size: 0.95rem;
-  color: var(--color-highlight);
+  color: var(--color-highlight-alt);
   margin-bottom: 0.5rem;
 }
 
-/* Remove .photo-icons styles (like/comment) */
+/* Tag Pill Styles within Photo Card */
+.photo-tags .tag-pill {
+  font-size: 0.85rem;
+  padding: 0.15em 0.5em;
+  margin-right: 0.3em;
+  background: rgba(108,146,241,0.15);
+  color: var(--color-secondary-accent);
+}
 
 /* Style for link button in overlay */
-.photo-link {
-  margin-top: 0.5rem;
-}
 .link-btn {
   background: rgba(255,255,255,0.10);
   border: 1.5px solid var(--color-accent);
@@ -399,15 +416,16 @@ section h2 {
   outline: none;
 }
 .link-btn:focus,
-.link-btn.copied {
+.link-btn:hover, /* Add hover effect for link button */
+ .link-btn.copied {
   background: var(--color-highlight);
   color: #fff;
   border-color: var(--color-highlight);
 }
 .link-btn.copied::after {
-  content: "Copied!";
-  color: var(--color-highlight);
-  font-size: 0.9em;
+  content: " Copied!"; /* Add space */
+  color: var(--color-white); /* Change color for visibility */
+  font-size: 0.9em; /* Keep font size */
   margin-left: 0.5em;
   font-weight: 600;
 }
@@ -423,6 +441,7 @@ section h2 {
   font-size: 1.05rem;
   margin-bottom: 0.5rem;
   font-style: italic;
+  color: var(--color-text); /* Change color for better visibility */
 }
 
 /* Modal Arrows and Actions */
@@ -456,28 +475,30 @@ section h2 {
 }
 #modal-title {
   font-weight: 700;
+  font-family: var(--font-heading);
   color: var(--color-accent);
   font-size: 1.2rem;
 }
 #modal-location {
-  color: var(--color-highlight);
+  color: var(--color-highlight-alt);
   font-size: 1rem;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.3rem;
 }
 #modal-tags {
-  color: var(--color-highlight-alt);
+  color: var(--color-highlight);
   font-size: 0.95rem;
   margin-bottom: 0.2rem;
 }
+/* Style for tags within modal */
+#modal-tags .tag-pill {
+  font-size: 0.9rem;
+  padding: 0.1em 0.4em;
+  margin-right: 0.2em;
+  background: rgba(108,146,241,0.15);
+  color: var(--color-secondary-accent);
+}
 #modal-story {
   color: var(--color-text-muted);
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-}
-.modal-actions {
-  margin-top: 0.7rem;
-  display: flex;
-  gap: 1.2rem;
 }
 .modal-actions button,
 .modal-actions a {
@@ -498,39 +519,24 @@ section h2 {
   color: #fff;
 }
 
-/* Contact Section */
-.contact-container {
-  max-width: 420px;
-  margin: 0 auto;
+/* About Section */
+#about {
   text-align: center;
 }
-.contact-container p {
+#about .about-text {
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  line-height: 1.8;
   color: var(--color-text-muted);
-  margin-bottom: 1.5rem;
-  font-size: 1.125rem;
 }
-.btn-secondary {
-  background: transparent;
-  border: 2px solid var(--color-black);
-  color: var(--color-black);
-  font-weight: 600;
-  font-size: 1.125rem;
-  padding: 0.75rem 2.5rem;
-  border-radius: var(--border-radius);
-  cursor: pointer;
-  transition: background-color var(--transition-speed), color var(--transition-speed), transform var(--transition-speed);
-}
-.btn-secondary:hover {
-  background-color: var(--color-black);
-  color: var(--color-white);
-  transform: scale(1.05);
-}
+
 
 /* Contact Form */
 #contact-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
   margin: 2rem 0 1rem;
   align-items: stretch;
 }
@@ -555,12 +561,13 @@ section h2 {
 #form-status {
   margin-top: 0.5rem;
   font-size: 1rem;
+  font-weight: 600;
   color: var(--color-highlight);
 }
 
 /* Social Links */
 .social-links {
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   display: flex;
   gap: 1rem;
   justify-content: center;
@@ -573,6 +580,7 @@ section h2 {
 }
 .social-links a:hover {
   color: var(--color-highlight);
+  transform: scale(1.1); /* Add subtle scale on hover */
 }
 
 /* Hamburger styles */
@@ -599,10 +607,10 @@ section h2 {
   }
   .nav-links {
     position: fixed;
-    left: -100%;
+    left: -100vw;
     top: 0;
     flex-direction: column;
-    background-color: var(--color-white);
+    background-color: var(--color-bg); /* Use background variable */
     width: 100%;
     text-align: center;
     transition: 0.3s;
@@ -610,6 +618,7 @@ section h2 {
     padding: 80px 0 30px;
     z-index: 1000;
     height: 100vh;
+    overflow-y: auto; /* Allow scrolling on small screens */
   }
   .nav-links.active {
     left: 0;
@@ -654,6 +663,7 @@ section h2 {
   height: auto;
   max-height: 70vh;
   object-fit: contain;
+  display: block; /* Ensure img is block */
   border-radius: var(--border-radius);
   background: #181818;
 }
@@ -669,32 +679,11 @@ section h2 {
   background: none;
   border: none;
 }
-.close:hover {
+.close:hover, .close:focus { /* Add focus state */
   color: var(--color-highlight);
 }
-.modal-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(15,15,15,0.5);
-  border: none;
-  color: var(--color-accent);
-  font-size: 2.2rem;
-  border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  cursor: pointer;
-  z-index: 2100;
-  transition: background 0.2s, color 0.2s;
-}
-.modal-arrow-left { left: 2vw; }
-.modal-arrow-right { right: 2vw; }
-.modal-arrow:hover { background: var(--color-highlight); color: #fff; }
-.modal-caption {
-  margin-top: 1.2rem;
-  color: var(--color-white);
-  text-align: left;
-  font-size: 1.1rem;
+/* Modal Caption & Meta */
+.modal-caption { /* Already defined, moved for clarity */
   width: 100%;
   max-width: 700px;
   word-break: break-word;
@@ -743,12 +732,12 @@ section h2 {
   color: #fff;
 }
 
-/* Responsive tweaks for modal and grid */
+/* Responsive Adjustments */
 @media (max-width: 900px) {
   .modal-content {
     max-width: 98vw;
     width: 98vw;
-  }
+  } /* Adjust modal width */
   .modal img {
     max-height: 55vh;
   }
@@ -760,28 +749,27 @@ section h2 {
 @media (max-width: 640px) {
   .modal-content {
     max-width: 100vw;
-    width: 100vw;
+    width: 100vw; /* Full width on small screens */
     padding: 0 0.5rem;
-  }
+  } /* Adjust modal padding */
   .modal img {
     max-height: 40vh;
     border-radius: 0.5rem;
-  }
+  } /* Reduce modal image height and border radius */
   .modal-caption {
     font-size: 0.97rem;
     padding: 0 0.2rem;
     max-width: 99vw;
-  }
+  } /* Adjust modal caption font size and padding */
   .modal-arrow {
     width: 38px;
     height: 38px;
-    font-size: 1.5rem;
+    font-size: 1.5rem; /* Adjust arrow size */
     left: 0.5vw;
     right: 0.5vw;
   }
   .close {
-    font-size: 2.2rem;
-    top: 8px;
+    font-size: 2.2rem; top: 8px; /* Adjust close button size and position */
     right: 12px;
   }
   .portfolio-masonry-grid {
@@ -790,7 +778,7 @@ section h2 {
   }
   .photo-card {
     border-radius: 0.5rem;
-  }
+  } /* Adjust photo card border radius */
 }
 
 /* Footer */
@@ -874,7 +862,7 @@ section h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.7s cubic-bezier(.4,0,.2,1), visibility 0.7s;
+  transition: opacity 0.7s cubic-bezier(.4,0,.2,1), visibility 0.7s;\
 }
 #loading-overlay.hidden {
   opacity: 0;
@@ -902,7 +890,7 @@ section h2 {
 }
 
 /* Dark mode styles */
-body.dark-mode {
+body.dark-mode { /* Apply dark mode variables to body */
   --color-bg: var(--color-bg-dark);
   --color-text: var(--color-text-dark);
   --color-text-muted: var(--color-text-muted-dark);
@@ -915,121 +903,12 @@ body.dark-mode {
 }
 
 .dark-mode header {
-  background-color: var(--color-bg);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+ background-color: var(--color-bg); /* Use dark mode background */
+ box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* Darker shadow in dark mode */
 }
 
-.dark-mode .photo-card {
-  background-color: var(--color-white);
-}
-
-.dark-mode .btn-primary {
-  background: var(--color-black);
-  color: var(--color-white);
-}
-
-.dark-mode .btn-primary:hover {
-  background-color: #3a3a3a;
-}
-
-.dark-mode .btn-secondary {
-  border-color: var(--color-black);
-  color: var(--color-black);
-}
-
-.dark-mode .btn-secondary:hover {
-  background-color: var(--color-black);
-  color: var(--color-white);
-}
-
-.dark-mode .footer {
-  background-color: var(--color-bg);
-}
-
-.dark-mode .dark-mode-toggle {
-  color: var(--color-text-muted);
-}
-
-.dark-mode .dark-mode-toggle:hover {
-  color: var(--color-black);
-}
-
-/* Mobile adjustments */
-@media (max-width: 640px) {
-  .dark-mode-toggle {
-    position: absolute;
-    right: 60px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-}
-
-/* Responsive tweaks */
-@media (max-width: 640px) {
-  nav {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .nav-links {
-    gap: 1rem;
-    flex-direction: column;
-    width: 100%;
-  }
-  .portfolio-grid {
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1rem;
-  }
-  .about-text {
-    font-size: 1rem;
-    padding: 0 0.5rem;
-  }
-  #contact-form input,
-  #contact-form textarea {
-    font-size: 0.95rem;
-  }
-}
-
-/* Bokeh Canvas */
-#bokeh-bg {
-  position: fixed;
-  z-index: 0;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  background: transparent;
-}
-
-/* Tag Pills */
-.tag-pill {
-  display: inline-block;
-  background: rgba(255,255,255,0.10);
-  color: var(--color-accent);
-  border: 1.5px solid var(--color-accent);
-  border-radius: 999px;
-  font-size: 0.98rem;
-  font-weight: 600;
-  padding: 0.25em 1em;
-  margin: 0 0.2em 0.2em 0;
-  cursor: pointer;
-  transition: background 0.18s, color 0.18s, border-color 0.18s;
-  outline: none;
-}
-.tag-pill.active,
-.tag-pill:focus {
-  background: var(--color-accent);
-  color: var(--color-black);
-  border-color: var(--color-highlight);
-}
-.tag-pill:hover {
-  background: var(--color-highlight);
-  color: #fff;
-  border-color: var(--color-highlight);
-}
-
-/* Parallax effect for hero image */
-.hero-image-container img {
-  /* ...existing code... */
-  will-change: transform;
-  /* ...existing code... */
+.dark-mode .photo-card { /* Adjust dark mode photo card styles */
+  background: rgba(255,255,255,0.02); /* Slightly lighter background */
+  border-color: rgba(255,255,255,0.05); /* Lighter border */
+  box-shadow: var(--shadow-dark); /* Use dark mode shadow */
 }

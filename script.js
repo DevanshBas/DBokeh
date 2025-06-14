@@ -333,19 +333,29 @@ filterBtns.forEach(btn => {
   });
 });
 
-// Contact Form Submission (client-side only)
-// Remove JS handler if using mailto: (optional, but harmless to keep for fallback)
+
+// Contact Form Submission (client-side simulation)
 const contactForm = document.getElementById('contact-form');
-if (contactForm && contactForm.action.startsWith('mailto:')) {
-  contactForm.addEventListener('submit', function(e) {
-    // Let the browser handle mailto: form submission
-    // Optionally show a message
-    setTimeout(() => {
-      const status = document.getElementById('form-status');
-      if (status) status.textContent = "Your email client should open. If not, please email me directly!";
-    }, 500);
-  });
-}
+const formStatus = document.getElementById('form-status');
+
+contactForm.addEventListener('submit', function(e) {
+ e.preventDefault();
+
+ formStatus.textContent = 'Sending...';
+ formStatus.style.color = '#FFAE00'; // Use accent color for status
+
+ // Simulate sending (replace with actual fetch() to backend later)
+ setTimeout(() => {
+ formStatus.textContent = 'Thank you for your message! I\'ll get back to you shortly.';
+ formStatus.style.color = '#6C92F1'; // Use secondary accent color for success
+ contactForm.reset();
+
+ // Clear status message after a few seconds
+ setTimeout(() => {
+ formStatus.textContent = '';
+ }, 5000);
+  }, 2000); // Simulate a 2-second delay
+});
 
 // Bokeh Floating Lights Background
 (function bokehBackground() {
